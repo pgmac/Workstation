@@ -108,6 +108,9 @@ pidgin() {
 apps() {
 	apt-get install rxvt rxvt-unicode xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils pidgin pidgin-sipe python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11
 	pip install boto awscli
+	git config --global user.email "pgmac@pgmac.net"
+	git config --global user.name "Paul Macdonnell"
+	git config --global push.default simple
 }
 
 aws() {
