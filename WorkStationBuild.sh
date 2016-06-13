@@ -38,9 +38,9 @@ gnome() {
 	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 0
-	gsettings set org.gnome.desktop.wm.preferences focus-mode "mouse"
-	gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
-	gsettings set org.gnome.settings-daemon.plugins.xrandr active false
+	#gsettings set org.gnome.desktop.wm.preferences focus-mode "mouse"
+	#gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
 	# dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
 }
 
@@ -199,9 +199,16 @@ hipchat() {
 	sudo apt-get install hipchat4
 }
 
+liquidprompt() {
+	git clone https://github.com/nojhan/liquidprompt.git
+	echo "source ~/Development/liquidprompt/liquidprompt" >> ~/.bashrc
+	cp ~/Developemnt/liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
+}
+
 if [ $# -eq 0 ]
 then
 	i3
+	gnome
 	urxvt
 	dropbox
 	apps
