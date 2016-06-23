@@ -7,8 +7,8 @@ then
 fi
 
 fonts() {
-	apt-get install fonts-droid
-	apt-get install fonts-inconsolata
+	apt install fonts-droid
+	apt install fonts-inconsolata
 }
 
 check_installed() {
@@ -27,14 +27,14 @@ check_installed() {
 
 i3() {
 	echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
-	apt-get update
-	apt-get --allow-unauthenticated install sur5r-keyring
-	apt-get update
-	apt-get install i3
+	apt update
+	apt --allow-unauthenticated install sur5r-keyring
+	apt update
+	apt install i3
 }
 
 gnome() {
-	apt-get install gnome devilspie
+	apt install gnome devilspie
 	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 0
@@ -42,6 +42,9 @@ gnome() {
 	#gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
 	# dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
+	add-apt-repository ppa:ne0sight/chrome-gnome-shell
+	sudo apt update
+	sudo apt install chrome-gnome-shell
 }
 
 urxvt() {
@@ -50,7 +53,7 @@ urxvt() {
 	APPNAME=rxvt-unicode
 	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 
-	apt-get install rxvt rxvt-unicode
+	apt install rxvt rxvt-unicode
 	#update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 }
 
@@ -68,8 +71,8 @@ dropbox() {
 		#echo "deb http://linux.dropbox.com/ubuntu `lsb_release -cs` main"
 	fi
 	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
-	apt-get update
-	apt-get install dropbox
+	apt update
+	apt install dropbox
 }
 
 chrome() {
@@ -80,7 +83,7 @@ chrome() {
 	cd ~/Downloads
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	dpkg -i google-chrome-stable_current_amd64.deb
-	apt-get -f install
+	apt -f install
 	rm google-chrome-stable_current_amd64.deb
 	xdg-mime default google-chrome.desktop x-scheme-handler/http
 	xdg-mime default google-chrome.desktop x-scheme-handler/https
@@ -94,19 +97,19 @@ darktable() {
 
 	# Install Darktable
 	apt-add-repository ppa:pmjdebruijn/darktable-release
-	apt-get update
-	apt-get install darktable
+	apt update
+	apt install darktable
 	ln -s /home/paul/Dropbox/servers/config/darktable/ /home/paul/.config/darktable
 }
 
 pidgin() {
 	add-apt-repository ppa:pidgin-gnome-keyring/ppa
-	apt-get update
-	apt-get install pidgin-gnome-keyring
+	apt update
+	apt install pidgin-gnome-keyring
 }
 
 apps() {
-	apt-get install rxvt rxvt-unicode xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils pidgin pidgin-sipe python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11
+	apt install rxvt rxvt-unicode xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils pidgin pidgin-sipe python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn
 	pip install boto awscli
 	git config --global user.email "pgmac@pgmac.net"
 	git config --global user.name "Paul Macdonnell"
@@ -125,20 +128,20 @@ aws() {
 oracle-java() {
 	echo "Install Oracle Java"
 	apt-add-repository ppa:webupd8team/java
-	apt-get update
-	apt-get install oracle-java8-installer
+	apt update
+	apt install oracle-java8-installer
 }
 
 restrictedaudio() {
-	apt-get install libdvdread4
+	apt install libdvdread4
 	/usr/share/doc/libdvdread4/install-css.sh
 	addgroup paul audio
 }
 
 openshot() {
 	sudo add-apt-repository ppa:openshot.developers/ppa
-	sudo apt-get update
-	sudo apt-get install openshot openshot-doc
+	sudo apt update
+	sudo apt install openshot openshot-doc
 }
 
 nagstamon() {
@@ -150,8 +153,8 @@ nagstamon() {
 
 fitbit() {
 	add-apt-repository ppa:cwayne18/fitbit
-	apt-get update
-	apt-get install galileo
+	apt update
+	apt install galileo
 	start galileo
 }
 
@@ -162,17 +165,19 @@ calibre() {
 atom() {
 	nodejs
 	apt-add-repository ppa:webupd8team/atom
-	apt-get update
-	apt-get install atom
+	apt update
+	apt install atom
 }
 
 nodejs() {
-	curl -sL https://deb.nodesource.com/setup_0.12 | bash -
-	apt-get install nodejs
+	#curl -sL https://deb.nodesource.com/setup_0.12 | bash -
+	#apt install nodejs
+	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+	sudo apt-get install -y nodejs npm
 }
 
 ssh_config() {
-	apt-get install openssh-server
+	apt install openssh-server
 	echo "    TCPKeepAlive yes" >> /etc/ssh/ssh_config
 	echo "    ServerAliveInterval 120" >> /etc/ssh/ssh_config
 	ssh-keygen
@@ -193,13 +198,13 @@ hipchat() {
 	# Previous hipchat version
 	#echo "deb http://downloads.hipchat.com/linux/apt stable main" > /etc/apt/sources.list.d/atlassian-hipchat.list
 	#wget -O - https://www.hipchat.com/keys/hipchat-linux.key | apt-key add -
-	#apt-get update
-	#apt-get install hipchat
+	#apt update
+	#apt install hipchat
 	# HipChat 4
 	sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
 	wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
-	sudo apt-get update
-	sudo apt-get install hipchat4
+	sudo apt update
+	sudo apt install hipchat4
 }
 
 liquidprompt() {
@@ -208,8 +213,20 @@ liquidprompt() {
 	cp ~/Developemnt/liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
 }
 
+alt_editor() {
+	update-alternatives --set editor /usr/bin/vim.tiny
+}
+
+keybase() {
+	curl -O https://prerelease.keybase.io/keybase_amd64.deb
+	sudo dpkg -i keybase_amd64.deb
+	sudo apt-get install -f
+	run_keybase
+}
+
 if [ $# -eq 0 ]
 then
+	alt_editor
 	i3
 	gnome
 	urxvt
