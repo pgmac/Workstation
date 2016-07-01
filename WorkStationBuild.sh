@@ -109,7 +109,7 @@ pidgin() {
 }
 
 apps() {
-	apt install rxvt rxvt-unicode xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils pidgin pidgin-sipe python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn
+	apt install rxvt rxvt-unicode xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils pidgin pidgin-sipe python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre
 	pip install boto awscli
 	git config --global user.email "pgmac@pgmac.net"
 	git config --global user.name "Paul Macdonnell"
@@ -232,6 +232,7 @@ then
 	urxvt
 	dropbox
 	apps
+	oracle-java
 	chrome
 	darktable
 	restrictedaudio
