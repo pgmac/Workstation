@@ -43,8 +43,8 @@ gnome() {
 	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
 	# dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
 	add-apt-repository ppa:ne0sight/chrome-gnome-shell
-	sudo apt update
-	sudo apt install chrome-gnome-shell
+	apt update
+	apt install chrome-gnome-shell
 }
 
 urxvt() {
@@ -70,7 +70,7 @@ dropbox() {
 		echo "deb http://linux.dropbox.com/ubuntu `lsb_release -cs` main" >> /etc/apt/sources.list
 		#echo "deb http://linux.dropbox.com/ubuntu `lsb_release -cs` main"
 	fi
-	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
+	apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
 	apt update
 	apt install dropbox
 }
@@ -118,6 +118,7 @@ apps() {
 
 aws() {
 	echo "Installing AWS"
+	echo "This has been deprecated and no longer does anything"
 	#export EC2_KEYPAIR=<your keypair name> # name only, not the file name
 	#export EC2_URL=https://ec2.ap-southeast-2.amazonaws.com
 	#export EC2_PRIVATE_KEY=$HOME/<where your private key is>/pk-XXXXXXXXXXXXXXXXXXXXXXXXXXXX.pem
@@ -139,9 +140,9 @@ restrictedaudio() {
 }
 
 openshot() {
-	sudo add-apt-repository ppa:openshot.developers/ppa
-	sudo apt update
-	sudo apt install openshot openshot-doc
+	add-apt-repository ppa:openshot.developers/ppa
+	apt update
+	apt install openshot openshot-doc
 }
 
 nagstamon() {
@@ -159,7 +160,7 @@ fitbit() {
 }
 
 calibre() {
-	wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
+	wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
 }
 
 atom() {
@@ -172,8 +173,8 @@ atom() {
 nodejs() {
 	#curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 	#apt install nodejs
-	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-	sudo apt-get install -y nodejs npm
+	curl -sL https://deb.nodesource.com/setup_6.x | bash -
+	apt-get install -y nodejs npm
 }
 
 ssh_config() {
@@ -202,15 +203,15 @@ hipchat() {
 	#apt install hipchat
 	# HipChat 4
 	sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
-	wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
-	sudo apt update
-	sudo apt install hipchat4
+	wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | apt-key add -
+	apt update
+	apt install hipchat4
 }
 
 liquidprompt() {
 	git clone https://github.com/nojhan/liquidprompt.git
-	echo "source ~/Development/liquidprompt/liquidprompt" >> ~/.bashrc
-	cp ~/Developemnt/liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
+	echo "[[ $- = *i* ]] && source ~/Development/liquidprompt/liquidprompt" >> ~/.bashrc
+	cp ~/Development/liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
 }
 
 alt_editor() {
@@ -219,15 +220,15 @@ alt_editor() {
 
 keybase() {
 	curl -O https://prerelease.keybase.io/keybase_amd64.deb
-	sudo dpkg -i keybase_amd64.deb
-	sudo apt-get install -f
+	dpkg -i keybase_amd64.deb
+	apt-get install -f
 	run_keybase
 }
 
 if [ $# -eq 0 ]
 then
 	alt_editor
-	i3
+	#i3
 	gnome
 	urxvt
 	dropbox
