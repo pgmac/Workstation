@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ `id -u` -ne 0 ]
+if [ `id -u` -eq 0 ]
 then
-	echo "You are running this as root.  This may not work as you expect.  As your sure?"
+	echo "You are running this as root.  This may not work as you expect.  Are your sure?"
 	exit 10
 fi
 
