@@ -8,12 +8,14 @@ fi
 
 mcd() {
 	if [ ! -d $1 ]
-	mkdir -p $1
-	cd $1
+	then
+		mkdir -p $1
+		cd $1
+	fi
 }
 
 fonts() {
-	sudo apt install fonts-droid
+	sudo apt install fonts-droid-fallback
 	sudo apt install fonts-inconsolata
 }
 
@@ -278,5 +280,6 @@ else
 	while [ $# -gt 0 ]
 	do
 		$1
+		shift
 	done
 fi
