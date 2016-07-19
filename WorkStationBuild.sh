@@ -6,6 +6,12 @@ then
 	exit 10
 fi
 
+mcd() {
+	if [ ! -d $1 ]
+	mkdir -p $1
+	cd $1
+}
+
 fonts() {
 	sudo apt install fonts-droid
 	sudo apt install fonts-inconsolata
@@ -80,7 +86,7 @@ chrome() {
 	#[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 
 	# Install Google Chrome
-	cd ~/Downloads
+	mcd ~/Downloads
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	sudo dpkg -i google-chrome-stable_current_amd64.deb
 	sudo apt -f install
@@ -96,24 +102,25 @@ darktable() {
 	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 
 	# Install Darktable
-	sudo apt-add-repository ppa:pmjdebruijn/darktable-release
-	sudo apt update
+	sudo apt-add-repository ppa:pmjdebruijn/darktable-release && \
+	sudo apt update && \
 	sudo apt install darktable
-	ln -s /home/paul/Dropbox/servers/config/darktable/ /home/paul/.config/darktable
+	ln -s ~/Dropbox/servers/config/darktable/ ~/.config/darktable
 }
 
 pidgin() {
+	sudo apt install pidgin pidgin-sipe
 	sudo add-apt-repository ppa:pidgin-gnome-keyring/ppa
 	sudo apt update
 	sudo apt install pidgin-gnome-keyring
 }
 
 apps() {
-	sudo apt install rxvt rxvt-unicode xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils pidgin pidgin-sipe python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser
+	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser
 	sudo pip -g install boto awscli
 	sudo -c "cd /usr/share/doc/git/contrib/credential/gnome-keyring/ && make"
-	#cd -
-	# Commented out because it will apply to "root" user instead of current user
+
+	# Config user specific options
 	git config --global user.email "pgmac@pgmac.net"
 	git config --global user.name "Paul Macdonnell"
 	git config --global push.default simple
@@ -132,33 +139,33 @@ aws() {
 
 oracle-java() {
 	echo "Install Oracle Java"
-	sudo apt-add-repository ppa:webupd8team/java
-	sudo apt update
+	sudo apt-add-repository ppa:webupd8team/java && \
+	sudo apt update && \
 	sudo apt install oracle-java8-installer
 }
 
 restrictedaudio() {
-	sudo apt install libdvdread4
+	sudo apt install libdvdread4 && \
 	sudo /usr/share/doc/libdvdread4/install-css.sh
 	sudo addgroup paul audio
 }
 
 openshot() {
-	sudo add-apt-repository ppa:openshot.developers/ppa
-	sudo apt update
+	sudo add-apt-repository ppa:openshot.developers/ppa && \
+	sudo apt update && \
 	sudo apt install openshot openshot-doc
 }
 
 nagstamon() {
-	cd ~/Downloads
+	mcd ~/Downloads
 	wget https://nagstamon.ifw-dresden.de/files-nagstamon/stable/nagstamon_1.0.1_all.deb
 	sudo dpkg -i nagstamon_1.0.1_all.deb
 	rm nagstamon_1.0.1_all.deb
 }
 
 fitbit() {
-	sudo add-apt-repository ppa:cwayne18/fitbit
-	sudo apt update
+	sudo add-apt-repository ppa:cwayne18/fitbit && \
+	sudo apt update && \
 	sudo apt install galileo
 	start galileo
 }
@@ -169,8 +176,8 @@ calibre() {
 
 atom() {
 	nodejs
-	sudo apt-add-repository ppa:webupd8team/atom
-	sudo apt update
+	sudo apt-add-repository ppa:webupd8team/atom && \
+	sudo apt update && \
 	sudo apt install atom
 }
 
@@ -213,6 +220,7 @@ hipchat() {
 }
 
 liquidprompt() {
+	mcd ~/Development/
 	git clone https://github.com/nojhan/liquidprompt.git
 	echo "[[ $- = *i* ]] && source ~/Development/liquidprompt/liquidprompt" >> ~/.bashrc
 	cp ~/Development/liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
@@ -223,6 +231,7 @@ alt_editor() {
 }
 
 keybase() {
+	mcd ~/Downloads/
 	sudo curl -O https://prerelease.keybase.io/keybase_amd64.deb
 	sudo dpkg -i keybase_amd64.deb
 	sudo apt install -f
@@ -232,8 +241,8 @@ keybase() {
 if [ $# -eq 0 ]
 then
 	alt_editor
-	#i3
 	gnome
+	#i3
 	urxvt
 	dropbox
 	apps
