@@ -32,6 +32,8 @@ check_installed() {
 }
 
 i3() {
+	APPNAME=i3
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
 	sudo apt update
 	sudo apt --allow-unauthenticated install sur5r-keyring
@@ -40,6 +42,11 @@ i3() {
 }
 
 gnome() {
+	APPNAME=gnome
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	APPNAME=chrome-gnome-shell
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+
 	#sudo apt install gnome devilspie
 	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
@@ -109,6 +116,8 @@ darktable() {
 }
 
 pidgin() {
+	APPNAME=pidgin
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	sudo apt install pidgin pidgin-sipe
 	sudo add-apt-repository ppa:pidgin-gnome-keyring/ppa
 	sudo apt update
@@ -138,6 +147,8 @@ aws() {
 }
 
 oracle-java() {
+	APPNAME=oracle-java8-installer
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	echo "Install Oracle Java"
 	sudo apt-add-repository ppa:webupd8team/java && \
 	sudo apt update && \
@@ -151,6 +162,8 @@ restrictedaudio() {
 }
 
 openshot() {
+	APPNAME=openshot
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	sudo add-apt-repository ppa:openshot.developers/ppa && \
 	sudo apt update && \
 	sudo apt install openshot openshot-doc
@@ -182,6 +195,8 @@ atom() {
 }
 
 nodejs() {
+	APPNAME=nodejs
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	#curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 	#apt install nodejs
 	curl -sL https://deb.nodesource.com/setup_6.x | bash -
@@ -189,7 +204,10 @@ nodejs() {
 }
 
 ssh_config() {
+	APPNAME=openssh-server
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	sudo apt install openssh-server
+
 	echo "    TCPKeepAlive yes" >> /etc/ssh/ssh_config
 	echo "    ServerAliveInterval 120" >> /etc/ssh/ssh_config
 	ssh-keygen
@@ -207,6 +225,8 @@ ssh_config() {
 }
 
 hipchat() {
+	APPNAME=hipchat4
+	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	# Previous hipchat version
 	#echo "deb http://downloads.hipchat.com/linux/apt stable main" > /etc/apt/sources.list.d/atlassian-hipchat.list
 	#wget -O - https://www.hipchat.com/keys/hipchat-linux.key | apt-key add -
