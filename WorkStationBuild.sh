@@ -43,20 +43,31 @@ i3() {
 	sudo apt install i3
 }
 
+gnome-settings() {
+	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+	gsettings set org.gnome.desktop.wm.preferences focus-mode "mouse"
+	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
+	gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 300
+	#gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
+	# dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
+}
+
 gnome() {
 	APPNAME=gnome
 	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	APPNAME=chrome-gnome-shell
 	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 
-	#sudo apt install gnome devilspie
-	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
-	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
-	#gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 0
-	#gsettings set org.gnome.desktop.wm.preferences focus-mode "mouse"
-	#gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
-	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
-	# dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
+	gnome-settings
+	##sudo apt install gnome devilspie
+	#gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+	##gsettings set org.gnome.desktop.wm.preferences auto-raise true
+	##gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 0
+	##gsettings set org.gnome.desktop.wm.preferences focus-mode "mouse"
+	##gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+	##gsettings set org.gnome.settings-daemon.plugins.xrandr active false
+	## dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
 	sudo add-apt-repository ppa:ne0sight/chrome-gnome-shell
 	sudo apt update
 	sudo apt install chrome-gnome-shell
