@@ -200,11 +200,23 @@ calibre() {
 	sudo wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
 }
 
+atom_packages() {
+	apm install activate-power-mode
+	apm disable activate-power-mode
+	apm install atom-hg
+	apm install git-time-machine
+	apm install minimap
+	apm install open-on-bitbucket
+	apm install qolor
+	apm install remote-edit
+}
+
 atom() {
 	nodejs
 	sudo apt-add-repository ppa:webupd8team/atom && \
 	sudo apt update && \
 	sudo apt install atom
+	atom_packages
 }
 
 nodejs() {
