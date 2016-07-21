@@ -46,8 +46,19 @@ i3() {
 gnome-settings() {
 	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 	gsettings set org.gnome.desktop.wm.preferences focus-mode "mouse"
-	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
 	gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 300
+
+	gsettings set org.gnome.settings-daemon.plugins.media-keys terminal '<Super>Return'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Super>l'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys logout '<Shift><Super>q'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'SSH Server'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command '/home/paul/bin/ssh-server.sh'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>backslash'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'RDP Server'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command '/home/paul/bin/rdp-session'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Shift><Super>bar'
+
+	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
 	#gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
 	# dconf write /org/gnome/settings-daemon/plugins/xrandr/active false
