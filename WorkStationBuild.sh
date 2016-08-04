@@ -34,7 +34,7 @@ i3() {
 }
 
 gnome() {
-	apt install gnome devilspie
+	#pt install gnome devilspie
 	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise-delay 0
@@ -208,6 +208,7 @@ hipchat() {
 }
 
 liquidprompt() {
+	cd ~/Development/
 	git clone https://github.com/nojhan/liquidprompt.git
 	echo "source ~/Development/liquidprompt/liquidprompt" >> ~/.bashrc
 	cp ~/Developemnt/liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
