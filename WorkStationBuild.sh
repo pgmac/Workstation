@@ -237,7 +237,7 @@ nodejs() {
 	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
 	#curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 	#apt install nodejs
-	curl -sL https://deb.nodesource.com/setup_6.x | bash -
+	curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -
 	sudo apt-get install -y nodejs npm
 }
 
