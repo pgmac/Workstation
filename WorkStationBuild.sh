@@ -222,6 +222,7 @@ atom_packages() {
 	apm install qolor
 	apm install remote-edit
 	apm install linter-jsonlint
+	apm install editorconfig
 }
 
 atom() {
