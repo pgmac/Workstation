@@ -51,6 +51,7 @@ gnome-settings() {
 	gsettings set org.gnome.settings-daemon.plugins.media-keys terminal '<Super>Return'
 	gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Super>l'
 	gsettings set org.gnome.settings-daemon.plugins.media-keys logout '<Shift><Super>q'
+	gsettings set org.gnome.settings-daemon.plugins.media-keys home '<Super>e'
 	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'SSH Server'
 	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command '/home/paul/bin/ssh-server.sh'
 	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>backslash'
@@ -149,8 +150,8 @@ pidgin() {
 }
 
 apps() {
-	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser
-	sudo pip -g install boto awscli
+	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser awscli
+	sudo pip install boto awscli awsclpy awscli-keyring awscli-cwlogs
 	sudo -c "cd /usr/share/doc/git/contrib/credential/gnome-keyring/ && make"
 
 	# Config user specific options
@@ -222,6 +223,8 @@ atom_packages() {
 	apm install remote-edit
 	apm install language-batchfile
 	apm install language-powershell
+	apm install linter-jsonlint
+	apm install editorconfig
 }
 
 atom() {
