@@ -221,6 +221,7 @@ atom_packages() {
 	apm install qolor
 	apm install remote-edit
 	apm install language-batchfile
+	apm install language-powershell
 }
 
 atom() {
