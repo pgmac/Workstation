@@ -220,6 +220,7 @@ atom_packages() {
 	apm install open-on-bitbucket
 	apm install qolor
 	apm install remote-edit
+	apm install language-batchfile
 }
 
 atom() {
