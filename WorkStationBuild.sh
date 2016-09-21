@@ -150,7 +150,7 @@ pidgin() {
 }
 
 apps() {
-	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser awscli
+	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser awscli network-manager-openvpn-gnome
 	sudo pip install boto awscli awsclpy awscli-keyring awscli-cwlogs
 	sudo -c "cd /usr/share/doc/git/contrib/credential/gnome-keyring/ && make"
 
