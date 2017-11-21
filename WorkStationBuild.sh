@@ -149,16 +149,19 @@ pidgin() {
 	sudo apt install pidgin-gnome-keyring
 }
 
-apps() {
-	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser awscli network-manager-openvpn-gnome
-	sudo pip install boto awscli awsclpy awscli-keyring awscli-cwlogs
-	sudo -c "cd /usr/share/doc/git/contrib/credential/gnome-keyring/ && make"
-
+git_config() {
 	# Config user specific options
 	git config --global user.email "pgmac@pgmac.net"
 	git config --global user.name "Paul Macdonnell"
 	git config --global push.default simple
 	git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+}
+
+apps() {
+	sudo apt install xdotool scrot cheese gimp youtube-dl handbrake handbrake-cli smbclient cifs-utils python-pip ec2-api-tools git icedtea-netx meld whois httpie weather-util traceroute evolution curl keepassx freerdp-x11 acpi openvpn default-jre libgnome-keyring-dev epiphany-browser awscli network-manager-openvpn-gnome
+	sudo pip install boto awscli awsclpy awscli-keyring awscli-cwlogs
+	sudo -c "cd /usr/share/doc/git/contrib/credential/gnome-keyring/ && make"
+	git_config
 }
 
 aws() {
@@ -235,6 +238,29 @@ atom() {
 	atom_packages
 }
 
+vscode_packages() {
+	code --install-extension carlevans.remote-editor
+	code --install-extension denco.confluence-markup
+	code --install-extension dhoeric.ansible-vault
+	code --install-extension eriklynd.json-tools
+	code --install-extension formulahendry.code-runner
+	code --install-extension haaaad.ansible
+	code --install-extension KnisterPeter.vscode-jira
+	code --install-extension ms-python.python
+	code --install-extension ms-vscode.PowerShell
+	code --install-extension ms-vsts.team
+	code --install-extension shakram02.bash-beautify
+	code --install-extension slevesque.vscode-autohotkey
+	code --install-extension thomas-baumgaertner.vcl
+	code --install-extension tht13.python
+	code --install-extension timonwong.ansible-autocomplete
+	code --install-extension xceleration.jira-search
+}
+
+vscode () {
+	vscode_packages
+}
+
 nodejs() {
 	APPNAME=nodejs
 	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
@@ -252,17 +278,17 @@ ssh_config() {
 	echo "    TCPKeepAlive yes" >> /etc/ssh/ssh_config
 	echo "    ServerAliveInterval 120" >> /etc/ssh/ssh_config
 	ssh-keygen
-	ssh-copy-id marvin.pgmac.net
-	ssh-copy-id samadams.int.mt
-	ssh-copy-id bluetongue.web.mt
-	ssh-copy-id raddler.web.mt
-	ssh-copy-id hopinator.web.mt
-	ssh-copy-id growler.web.mt
-	ssh-copy-id bintang.web.mt
-	ssh-copy-id fireship.canstar.internal
-	ssh-copy-id colony.canstar.internal
-	ssh-copy-id webtest.canstar.internal
-	ssh-copy-id webtest2.canstar.internal
+	#ssh-copy-id marvin.pgmac.net
+	#ssh-copy-id samadams.int.mt
+	#ssh-copy-id bluetongue.web.mt
+	#ssh-copy-id raddler.web.mt
+	#ssh-copy-id hopinator.web.mt
+	#ssh-copy-id growler.web.mt
+	#ssh-copy-id bintang.web.mt
+	#ssh-copy-id fireship.canstar.internal
+	#ssh-copy-id colony.canstar.internal
+	#ssh-copy-id webtest.canstar.internal
+	#ssh-copy-id webtest2.canstar.internal
 }
 
 hipchat() {
@@ -304,7 +330,7 @@ then
 	alt_editor
 	gnome
 	#i3
-	urxvt
+	#urxvt
 	dropbox
 	apps
 	oracle-java
@@ -313,8 +339,9 @@ then
 	restrictedaudio
 	openshot
 	#pidgin
-	nagstamon
+	#nagstamon
 	ssh_config
+	keybase
 else
 	while [ $# -gt 0 ]
 	do
