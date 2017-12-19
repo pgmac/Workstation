@@ -255,6 +255,7 @@ vscode_packages() {
 	code --install-extension tht13.python
 	code --install-extension timonwong.ansible-autocomplete
 	code --install-extension xceleration.jira-search
+	code --install-extension vector-of-bool.gitflow
 }
 
 vscode () {
