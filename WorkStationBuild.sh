@@ -2,7 +2,7 @@
 
 if [ `id -u` -eq 0 ]
 then
-	echo "You are running this as root.  This may not work as you expect.  Are your sure?"
+	echo "You are running this as root.  This may not work as you expect.  Are you sure?"
 	exit 10
 fi
 
@@ -10,6 +10,8 @@ mcd() {
 	if [ ! -d $1 ]
 	then
 		mkdir -p $1
+		cd $1
+	else
 		cd $1
 	fi
 }
@@ -21,21 +23,20 @@ fonts() {
 
 check_installed() {
 	#echo "Checking if $1 is installed"
-	sudo apt-cache policy $1 | grep Installed 2>&1 > /dev/null
+	sudo apt-cache policy $1 | grep "Installed: [0-9]" 2>&1 > /dev/null
 	RET=$?
 	if [ $RET -eq 0 ]
 	then
-		echo "${APPNAME} is already installed.  Skipping."
-		return 10
+		echo "${1} is already installed.  Skipping."
+		#return 10
 	else
-		echo "Installing ${APPNAME}"
+		echo "Installing ${1}"
 	fi
-	echo -n ${RET}
+	#echo -n ${RET}
 }
 
 i3() {
-	APPNAME=i3
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed i3; then return 10; fi
 	sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
 	sudo apt update
 	sudo apt --allow-unauthenticated install sur5r-keyring
@@ -66,10 +67,8 @@ gnome-settings() {
 }
 
 gnome() {
-	APPNAME=gnome
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
-	APPNAME=chrome-gnome-shell
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed gnome; then return 10; fi
+	if check_installed chrome-gnome-shell; then return 10; fi
 
 	gnome-settings
 	##sudo apt install gnome devilspie
@@ -86,18 +85,15 @@ gnome() {
 }
 
 urxvt() {
-	APPNAME=rxvt
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
-	APPNAME=rxvt-unicode
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed rxvt; then return 10; fi
+	if check_installed rxvt-unicode; then return 10; fi
 
 	sudo apt install rxvt rxvt-unicode
 	#update-alternatives --set x-terminal-emulator /usr/bin/urxvt
 }
 
 dropbox() {
-	APPNAME=dropbox
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed dropbox; then return 10; fi
 
 	# Install Dropbox
 	if [ -d	 /etc/apt/sources.list.d ]
@@ -114,8 +110,7 @@ dropbox() {
 }
 
 chrome() {
-	APPNAME=google-chrome-stable
-	#[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed google-chrome-stable; then return 10; fi
 
 	# Install Google Chrome
 	mcd ~/Downloads
@@ -130,8 +125,8 @@ chrome() {
 }
 
 darktable() {
-	APPNAME=darktable
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed darktable; then return 10; fi
+	if check_installed dropbox; then return 10; fi
 
 	# Install Darktable
 	sudo apt-add-repository ppa:pmjdebruijn/darktable-release && \
@@ -141,8 +136,7 @@ darktable() {
 }
 
 pidgin() {
-	APPNAME=pidgin
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed pidgin; then return 10; fi
 	sudo apt install pidgin pidgin-sipe
 	sudo add-apt-repository ppa:pidgin-gnome-keyring/ppa
 	sudo apt update
@@ -175,8 +169,7 @@ aws() {
 }
 
 oracle-java() {
-	APPNAME=oracle-java8-installer
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed oracle-java8-installer; then return 10; fi
 	echo "Install Oracle Java"
 	sudo apt-add-repository ppa:webupd8team/java && \
 	sudo apt update && \
@@ -190,8 +183,7 @@ restrictedaudio() {
 }
 
 openshot() {
-	APPNAME=openshot
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed openshot; then return 10; fi
 	sudo add-apt-repository ppa:openshot.developers/ppa && \
 	sudo apt update && \
 	sudo apt install openshot openshot-doc
@@ -246,6 +238,7 @@ vscode_packages() {
 	code --install-extension formulahendry.code-runner
 	code --install-extension haaaad.ansible
 	code --install-extension KnisterPeter.vscode-jira
+	code --install-extension lukehoban.Go
 	code --install-extension ms-python.python
 	code --install-extension ms-vscode.PowerShell
 	code --install-extension ms-vsts.team
@@ -254,17 +247,24 @@ vscode_packages() {
 	code --install-extension thomas-baumgaertner.vcl
 	code --install-extension tht13.python
 	code --install-extension timonwong.ansible-autocomplete
-	code --install-extension xceleration.jira-search
 	code --install-extension vector-of-bool.gitflow
+	code --install-extension xceleration.jira-search
 }
 
 vscode () {
-	vscode_packages
+	if
+		check_installed code
+	then
+		vscode_packages
+		return 10
+	fi
+	echo "eb [arch=amd64] http://packages.microsoft.com/rep" > /etc/apt/sources.list.d/vscode.list
+	sudo apt update && \
+	sudo apt install code
 }
 
 nodejs() {
-	APPNAME=nodejs
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed nodejs; then return 10; fi
 	#curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 	#apt install nodejs
 	curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -
@@ -272,8 +272,7 @@ nodejs() {
 }
 
 ssh_config() {
-	APPNAME=openssh-server
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed openssh-server; then return 10; fi
 	sudo apt install openssh-server
 
 	echo "    TCPKeepAlive yes" >> /etc/ssh/ssh_config
@@ -293,8 +292,7 @@ ssh_config() {
 }
 
 hipchat() {
-	APPNAME=hipchat4
-	[ $(check_installed ${APPNAME}) -eq 0 ] && return 10
+	if check_installed hipchat4; then return 10; fi
 	# Previous hipchat version
 	#echo "deb http://downloads.hipchat.com/linux/apt stable main" > /etc/apt/sources.list.d/atlassian-hipchat.list
 	#wget -O - https://www.hipchat.com/keys/hipchat-linux.key | apt-key add -
@@ -305,6 +303,14 @@ hipchat() {
 	wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
 	sudo apt update
 	sudo apt install hipchat4
+}
+
+slack() {
+	if check_installed slack-desktop; then return 10; fi
+	mcd ~/Downloads
+	curl -O https://downloads.slack-edge.com/linux_releases/slack-desktop-3.0.0-amd64.deb
+	sudo dpkg -i slack-desktop-3.0.0-amd64.deb
+	sudo apt install -f
 }
 
 liquidprompt() {
@@ -326,6 +332,10 @@ keybase() {
 	run_keybase
 }
 
+hexchat() {
+	sudo apt install hexchat
+}
+
 if [ $# -eq 0 ]
 then
 	alt_editor
@@ -338,11 +348,12 @@ then
 	chrome
 	darktable
 	restrictedaudio
-	openshot
+	#openshot
 	#pidgin
 	#nagstamon
 	ssh_config
 	keybase
+	hexchat
 else
 	while [ $# -gt 0 ]
 	do
