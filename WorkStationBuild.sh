@@ -275,20 +275,24 @@ ssh_config() {
 	if check_installed openssh-server; then return 10; fi
 	sudo apt install openssh-server
 
-	echo "    TCPKeepAlive yes" >> /etc/ssh/ssh_config
-	echo "    ServerAliveInterval 120" >> /etc/ssh/ssh_config
+	CONFIG_FILE="~/.ssh/config"
+
+	#echo "    TCPKeepAlive yes" >> /etc/ssh/ssh_config
+	#echo "    ServerAliveInterval 120" >> /etc/ssh/ssh_config
+
+	if [ -f ${CONFIG_FILE} ]
+	then
+		# prepend TCPKeepAlive and ServerAliveInterval
+	else
+		# Create file
+		echo "Host *" > ${CONFIG_FILE}
+		echo "    TCPKeepAlive yes" >> ${CONFIG_FILE}
+		echo "    ServerAliveInterval 120" >> ${CONFIG_FILE}
+	fi
 	ssh-keygen
 	#ssh-copy-id marvin.pgmac.net
-	#ssh-copy-id samadams.int.mt
-	#ssh-copy-id bluetongue.web.mt
-	#ssh-copy-id raddler.web.mt
-	#ssh-copy-id hopinator.web.mt
-	#ssh-copy-id growler.web.mt
-	#ssh-copy-id bintang.web.mt
-	#ssh-copy-id fireship.canstar.internal
-	#ssh-copy-id colony.canstar.internal
-	#ssh-copy-id webtest.canstar.internal
-	#ssh-copy-id webtest2.canstar.internal
+	#ssh-copy-id micro.int.pgmac.net
+	#ssh-copy-id macro.int.pgmac.net
 }
 
 hipchat() {
