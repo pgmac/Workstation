@@ -234,21 +234,28 @@ vscode_packages() {
 	code --install-extension carlevans.remote-editor
 	code --install-extension denco.confluence-markup
 	code --install-extension dhoeric.ansible-vault
+	code --install-extension eamodio.gitlens
 	code --install-extension eriklynd.json-tools
 	code --install-extension formulahendry.code-runner
 	code --install-extension haaaad.ansible
 	code --install-extension KnisterPeter.vscode-jira
+	code --install-extension liximomo.sftp
 	code --install-extension lukehoban.Go
 	code --install-extension ms-python.python
 	code --install-extension ms-vscode.PowerShell
 	code --install-extension ms-vsts.team
+	code --install-extension rupisaini.vscode-ansible-linter
+	code --install-extension secanis.jenkinsfile-support
 	code --install-extension shakram02.bash-beautify
 	code --install-extension slevesque.vscode-autohotkey
 	code --install-extension thomas-baumgaertner.vcl
 	code --install-extension tht13.python
 	code --install-extension timonwong.ansible-autocomplete
 	code --install-extension vector-of-bool.gitflow
+	code --install-extension vscoss.vscode-ansible
 	code --install-extension xceleration.jira-search
+	code --install-extension wholroyd.jinja
+	code --install-extension DavidAnson.vscode-markdownlint
 }
 
 vscode () {
