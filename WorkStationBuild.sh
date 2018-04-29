@@ -231,6 +231,7 @@ atom() {
 }
 
 vscode_packages() {
+	code --install-extension bajdzis.vscode-database
 	code --install-extension carlevans.remote-editor
 	code --install-extension denco.confluence-markup
 	code --install-extension dhoeric.ansible-vault
