@@ -60,6 +60,12 @@ gnome-settings() {
 	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command '/home/paul/bin/rdp-session'
 	gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Shift><Super>bar'
 
+	gsettings set org.gnome.desktop.wm.keybindings switch-group "['<Super>Above_Tab']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Shift><Super>Tab']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Alt>Tab']"
+
 	#gsettings set org.gnome.desktop.wm.preferences auto-raise true
 	#gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 	#gsettings set org.gnome.settings-daemon.plugins.xrandr active false
